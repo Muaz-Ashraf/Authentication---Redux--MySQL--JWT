@@ -75,12 +75,12 @@ const SignInForm = () => {
 					</Typography>
 					<Grid
 						container
-						alignItems={{ xs: "flex-start", md: "center" }}
+						alignItems={{ xs: "flex-start", sm: "center" }}
 						justifyContent={"center"}
 						spacing={1}
 						my={6}
 						px={5}
-						direction={{ xs: "column", md: "row" }}
+						direction={{ xs: "column", sm: "row" }}
 					>
 						<Grid
 							item
