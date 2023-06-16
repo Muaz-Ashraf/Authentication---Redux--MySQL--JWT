@@ -146,13 +146,13 @@ const SignInForm = () => {
 
 								alignItems: "center",
 								textTransform: "none",
-								transition: "all 0.5s ease-in-out",
+								transition: "all 1s ease-in-out",
 								borderRadius: 0,
 								"&:hover": {
 									bgcolor: "magenta",
 									"& svg": {
 										transform: "translateX(50px)",
-										transition: "all 0.5s ease-in-out",
+										transition: "all 1s ease-in-out",
 									},
 								},
 								px: 8,
