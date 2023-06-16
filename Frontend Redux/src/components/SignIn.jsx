@@ -61,7 +61,7 @@ const SignInForm = () => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Box sx={{ p: { xs: "3rem", md: "10rem", lg: "15rem" } }}>
-				<Card>
+				<Card sx={{ border: "2px solid black" }}>
 					<Typography
 						bgcolor={"blue"}
 						fontSize={40}
@@ -134,32 +134,40 @@ const SignInForm = () => {
 								helperText={errors?.password && errors?.password?.message} // Corrected helperText prop
 							/>
 						</Grid>
-						<Grid
-							item
-							xs={12}
-						>
-							<Box
-								display="flex"
-								justifyContent={"flex-end"}
-								alignItems={"flex-end"}
-							>
-								<Button
-									sx={{
-										p: 1,
-										textTransform: "none",
-										fontWeight: "bold",
-									}}
-									size="small"
-									type="submit"
-									variant="contained"
-									color="primary"
-								>
-									Sign In
-									<InputIcon sx={{ ml: 0.6 }} />
-								</Button>
-							</Box>
-						</Grid>
 					</Grid>
+					<Box
+						display="flex"
+						justifyContent={"flex-end"}
+						alignItems={"flex-end"}
+					>
+						<Button
+							sx={{
+								display: "flex",
+
+								alignItems: "center",
+								textTransform: "none",
+								transition: "all 0.5s ease-in-out",
+								borderRadius: 0,
+								"&:hover": {
+									bgcolor: "magenta",
+									"& svg": {
+										transform: "translateX(50px)",
+										transition: "all 0.5s ease-in-out",
+									},
+								},
+								px: 8,
+							}}
+							size="small"
+							type="submit"
+							variant="contained"
+							color="primary"
+						>
+							<Typography sx={{ fontSize: 20, fontWeight: "bold" }}>
+								Sign In
+							</Typography>
+							<InputIcon sx={{ ml: 0.6 }} />
+						</Button>
+					</Box>
 				</Card>
 			</Box>
 		</form>
