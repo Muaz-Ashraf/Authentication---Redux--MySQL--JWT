@@ -94,12 +94,12 @@ const SignInForm = () => {
 				}}
 			>
 				<motion.div
-					initial={{ scale: 0, rotate: 180 }}
+					initial={{ scale: 0, rotate: 360 }}
 					animate={{ rotate: 0, scale: 1 }}
 					transition={{
 						type: "spring",
-						stiffness: 800,
-						damping: 200,
+						stiffness: 300,
+						damping: 50,
 					}}
 				>
 					<Card
