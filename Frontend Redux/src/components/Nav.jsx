@@ -38,6 +38,7 @@ function Nav() {
 				alignItems={"center"}
 				bgcolor={"white"}
 				width="100vw"
+				py={1}
 			>
 				<IconButton onClick={() => setOpen(true)}>
 					<MenuIcon />{" "}
@@ -45,7 +46,6 @@ function Nav() {
 				<Stack
 					direction={"row"}
 					spacing={3}
-					p={4}
 					sx={{
 						// CSS styles
 						"& a": {
@@ -55,14 +55,41 @@ function Nav() {
 					}}
 				>
 					<Link to="/">
-						<Typography fontSize={"20px"}>Home</Typography>
+						<Typography
+							sx={{
+								transition: "all 0.5s ease-in-out",
+								p: 2,
+								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
+							}}
+							fontSize={"20px"}
+						>
+							Home
+						</Typography>
 					</Link>
 					<Link to="/about">
-						<Typography fontSize={"20px"}>About</Typography>
+						<Typography
+							sx={{
+								transition: "all 0.5s ease-in-out",
+								p: 2,
+								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
+							}}
+							fontSize={"20px"}
+						>
+							About
+						</Typography>
 					</Link>
 
 					<Link to="/contact">
-						<Typography fontSize={"20px"}>Contact</Typography>
+						<Typography
+							sx={{
+								transition: "all 0.5s ease-in-out",
+								p: 2,
+								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
+							}}
+							fontSize={"20px"}
+						>
+							Contact
+						</Typography>
 					</Link>
 				</Stack>{" "}
 				<Button
