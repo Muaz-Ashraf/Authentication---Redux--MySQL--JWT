@@ -9,7 +9,7 @@ import {
 	Stack,
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../authSlice";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,6 +28,7 @@ function Nav() {
 			})
 		);
 	}
+	const location = useLocation();
 	return (
 		<>
 			<Stack
@@ -44,34 +45,44 @@ function Nav() {
 					<MenuIcon />{" "}
 				</IconButton>
 				<Stack
-					direction={"row"}
+					direction="row"
 					spacing={3}
 					sx={{
-						// CSS styles
 						"& a": {
-							textDecoration: "none", // Remove underline
+							borderRadius: 2,
+							textDecoration: "none",
 							color: "blue",
+							"&:hover": { bgcolor: "red", color: "white" },
+						},
+						"& a.active": {
+							// Custom style for active link
+							bgcolor: "red",
+							color: "white",
 						},
 					}}
 				>
-					<Link to="/">
+					<Link
+						to="/"
+						className={location.pathname === "/" ? "active" : ""}
+					>
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
 								p: 2,
-								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
 							}}
 							fontSize={"20px"}
 						>
 							Home
 						</Typography>
 					</Link>
-					<Link to="/about">
+					<Link
+						to="/about"
+						className={location.pathname === "/about" ? "active" : ""}
+					>
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
 								p: 2,
-								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
 							}}
 							fontSize={"20px"}
 						>
@@ -79,12 +90,14 @@ function Nav() {
 						</Typography>
 					</Link>
 
-					<Link to="/contact">
+					<Link
+						to="/contact"
+						className={location.pathname === "/contact" ? "active" : ""}
+					>
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
 								p: 2,
-								"&:hover": { bgcolor: "red", color: "white", borderRadius: 2 },
 							}}
 							fontSize={"20px"}
 						>
