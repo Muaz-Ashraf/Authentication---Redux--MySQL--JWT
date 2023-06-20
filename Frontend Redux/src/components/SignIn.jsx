@@ -60,19 +60,46 @@ const SignInForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Box sx={{ p: { xs: "3rem", md: "10rem", lg: "15rem" } }}>
-				<Card sx={{ border: "2px solid black" }}>
+			<Box
+				sx={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					height: "100dvh",
+					width: "auto",
+					px: { xs: "3rem", md: "10rem", lg: "20rem" },
+				}}
+			>
+				<Card
+					sx={{
+						border: "2px solid black",
+						borderRadius: 3,
+						transition: "all 0.6s ease-in-out",
+					}}
+				>
 					<Typography
-						bgcolor={"blue"}
 						fontSize={40}
 						py={3}
 						fontWeight={"bold"}
 						textAlign={"center"}
 						color={"white"}
-						letterSpacing={5}
+						sx={{
+							backgroundColor: "#4158D0",
+							backgroundImage:
+								"linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #ff707b 100%)",
+							transition:
+								"background-color 2s ease-in-out, letter-spacing 2s ease-in-out",
+							"&:hover": {
+								letterSpacing: "0.5rem",
+								backgroundColor: "#ff707b",
+								backgroundImage:
+									"linear-gradient(43deg, #ff707b 0%, #C850C0 30%, #4158D0 66%, #f24cbc 100%)",
+							},
+						}}
 					>
 						Redux Sign In
 					</Typography>
+
 					<Grid
 						container
 						alignItems={{ xs: "flex-start", sm: "center" }}
@@ -80,6 +107,8 @@ const SignInForm = () => {
 						spacing={1}
 						my={6}
 						px={5}
+						width={"100%"}
+						height={"100%"}
 						direction={{ xs: "column", sm: "row" }}
 					>
 						<Grid
@@ -143,26 +172,33 @@ const SignInForm = () => {
 						<Button
 							sx={{
 								display: "flex",
-
 								alignItems: "center",
 								textTransform: "none",
-								transition: "all 1s ease-in-out",
 								borderRadius: 0,
+								transition: "all 0.6s ease-in-out",
 								"&:hover": {
-									bgcolor: "magenta",
+									bgcolor: "green",
+									borderTopLeftRadius: 10,
 									"& svg": {
-										transform: "translateX(50px)",
-										transition: "all 1s ease-in-out",
+										transform: "translateX(60px)",
 									},
 								},
-								px: 8,
+								"& svg": {
+									transition: "all 0.6s ease-in-out",
+								},
+								px: 10,
 							}}
 							size="small"
 							type="submit"
 							variant="contained"
 							color="primary"
 						>
-							<Typography sx={{ fontSize: 20, fontWeight: "bold" }}>
+							<Typography
+								sx={{
+									fontSize: 20,
+									fontWeight: "bold",
+								}}
+							>
 								Sign In
 							</Typography>
 							<InputIcon sx={{ ml: 0.6 }} />
