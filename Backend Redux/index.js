@@ -65,8 +65,8 @@ app.post("/api/login", (req, res) => {
 					expiresIn: "1h", // Token expiration time
 				});
 
-				// res.status(200).json({ success: true, token });
-				res.status(200).cookie("token", token, { httpOnly: true });
+				res.status(200).json({ success: true, token });
+				// res.status(200).json("token", token, { httpOnly: true });
 			}
 		});
 	});
