@@ -3,13 +3,14 @@ const mysql = require("mysql2");
 const jwt = require("jsonwebtoken");
 const app = express();
 const port = 5000;
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 app.use(cors());
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 // Create a MySQL connection pool
 const pool = mysql.createPool({
 	host: "localhost",
@@ -64,7 +65,8 @@ app.post("/api/login", (req, res) => {
 					expiresIn: "1h", // Token expiration time
 				});
 
-				res.status(200).json({ success: true, token });
+				// res.status(200).json({ success: true, token });
+				res.status(200).cookie("token", token, { httpOnly: true });
 			}
 		});
 	});

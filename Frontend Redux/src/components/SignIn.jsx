@@ -80,6 +80,10 @@ const SignInForm = () => {
 			</Typography>
 			<Box
 				sx={{
+					backgroundImage: "url('/cool-background.png')",
+					backgroundRepeat: "no-repeat",
+					backgroundSize: "cover",
+
 					bgcolor: "#ccc",
 					display: "flex",
 					justifyContent: "center",
@@ -94,8 +98,8 @@ const SignInForm = () => {
 					animate={{ rotate: 0, scale: 1 }}
 					transition={{
 						type: "spring",
-						stiffness: 260,
-						damping: 50,
+						stiffness: 800,
+						damping: 200,
 					}}
 				>
 					<Card
