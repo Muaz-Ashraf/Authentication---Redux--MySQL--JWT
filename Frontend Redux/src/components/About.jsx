@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Box, Grid, Typography } from "@mui/material";
 import Nav from "./Nav";
+import Page from "./Page";
 
 function About() {
 	const dispatch = useDispatch();
@@ -13,21 +14,7 @@ function About() {
 	return (
 		<>
 			<Nav />
-
-			<Grid
-				container
-				justifyContent={"center"}
-				alignItems={"center"}
-				height={"100vh"}
-				bgcolor="maroon"
-			>
-				<Typography
-					fontSize={"6rem"}
-					color="white"
-				>
-					ABOUT
-				</Typography>
-			</Grid>
+			<Page>About</Page>
 		</>
 	);
 }

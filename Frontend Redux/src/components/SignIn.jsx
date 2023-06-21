@@ -12,6 +12,7 @@ import {
 	Typography,
 	Card,
 	Grid,
+	CircularProgress,
 } from "@mui/material";
 import { setToken, clearToken, setAuthenticated } from "../authSlice";
 
@@ -19,7 +20,7 @@ const SignInForm = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+
 	const {
 		register,
 		handleSubmit,
@@ -28,7 +29,11 @@ const SignInForm = () => {
 		trigger,
 		reset,
 	} = useForm();
+
+	const [loading, setLoading] = useState(false);
+
 	const onSubmit = async (data) => {
+		setLoading(true);
 		try {
 			const response = await fetch("http://localhost:5000/api/login", {
 				method: "POST",
@@ -43,7 +48,6 @@ const SignInForm = () => {
 				// Request was successful
 				dispatch(setToken()); // Dispatch the action without passing the token
 				dispatch(setAuthenticated());
-				navigate("/");
 			} else {
 				// Request failed
 				throw new Error("Error: " + response.status);
@@ -55,6 +59,7 @@ const SignInForm = () => {
 
 		setUsername(data.username);
 		setPassword(data.password);
+		setLoading(false);
 	};
 
 	return (
@@ -204,40 +209,44 @@ const SignInForm = () => {
 							justifyContent={"flex-end"}
 							alignItems={"flex-end"}
 						>
-							<Button
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									textTransform: "none",
-									borderRadius: 0,
-									transition: "all 0.6s ease-in-out",
-									"&:hover": {
-										bgcolor: "green",
-										borderTopLeftRadius: 10,
-										"& svg": {
-											transform: "translateX(60px)",
-										},
-									},
-									"& svg": {
-										transition: "all 0.6s ease-in-out",
-									},
-									px: 10,
-								}}
-								size="small"
-								type="submit"
-								variant="contained"
-								color="primary"
-							>
-								<Typography
+							{loading ? (
+								<CircularProgress />
+							) : (
+								<Button
 									sx={{
-										fontSize: 20,
-										fontWeight: "bold",
+										display: "flex",
+										alignItems: "center",
+										textTransform: "none",
+										borderRadius: 0,
+										transition: "all 0.6s ease-in-out",
+										"&:hover": {
+											bgcolor: "green",
+											borderTopLeftRadius: 10,
+											"& svg": {
+												transform: "translateX(60px)",
+											},
+										},
+										"& svg": {
+											transition: "all 0.6s ease-in-out",
+										},
+										px: 10,
 									}}
+									size="small"
+									type="submit"
+									variant="contained"
+									color="primary"
 								>
-									Sign In
-								</Typography>
-								<InputIcon sx={{ ml: 0.6 }} />
-							</Button>
+									<Typography
+										sx={{
+											fontSize: 20,
+											fontWeight: "bold",
+										}}
+									>
+										Sign In
+									</Typography>
+									<InputIcon sx={{ ml: 0.6 }} />
+								</Button>
+							)}
 						</Box>
 					</Card>
 				</motion.div>

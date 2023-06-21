@@ -17,83 +17,56 @@ const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const response = await fetch("http://localhost:5000/api/user", {
-					method: "GET",
-					credentials: "include",
-				});
+	// useEffect(() => {
+	// 	const fetchUser = async () => {
+	// 		try {
+	// 			const response = await fetch("http://localhost:5000/api/user", {
+	// 				method: "GET",
+	// 				credentials: "include",
+	// 			});
 
-				if (response.ok) {
-					const data = await response.json();
-					dispatch(setAuthenticated(data.user));
-				} else {
-					dispatch(clearToken());
-				}
-			} catch (error) {
-				console.error("Error fetching user:", error);
-				dispatch(clearToken());
-			}
-		};
+	// 			if (response.ok) {
+	// 				const data = await response.json();
+	// 				dispatch(setAuthenticated(data.user));
+	// 			} else {
+	// 				dispatch(clearToken());
+	// 			}
+	// 		} catch (error) {
+	// 			console.error("Error fetching user:", error);
+	// 			dispatch(clearToken());
+	// 		}
+	// 	};
 
-		const token = document.cookie
-			.split("; ")
-			.find((cookie) => cookie.startsWith("token="));
+	// 	const token = document.cookie
+	// 		.split("; ")
+	// 		.find((cookie) => cookie.startsWith("token="));
 
-		if (token) {
-			dispatch(setToken(token.split("=")[1]));
-			fetchUser();
-		} else {
-			dispatch(clearToken());
-		}
-	}, []);
+	// 	if (token) {
+	// 		dispatch(setToken(token.split("=")[1]));
+	// 		fetchUser();
+	// 	} else {
+	// 		dispatch(clearToken());
+	// 	}
+	// }, []);
 
 	return (
 		<Router>
 			<Routes>
 				<Route
 					path="/"
-					element={
-						isAuthenticated ? (
-							<Home />
-						) : (
-							<Navigate
-								to="/signin"
-								replace
-							/>
-						)
-					}
+					element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
 				/>
 				<Route
 					path="/about"
-					element={
-						isAuthenticated ? (
-							<About />
-						) : (
-							<Navigate
-								to="/signin"
-								replace
-							/>
-						)
-					}
+					element={isAuthenticated ? <About /> : <Navigate to="/signin" />}
 				/>
 				<Route
 					path="/contact"
-					element={
-						isAuthenticated ? (
-							<Contact />
-						) : (
-							<Navigate
-								to="/signin"
-								replace
-							/>
-						)
-					}
+					element={isAuthenticated ? <Contact /> : <Navigate to="/signin" />}
 				/>
 				<Route
 					path="/signin"
-					element={<SignIn />}
+					element={!isAuthenticated ? <SignIn /> : <Navigate to="/" />}
 				/>
 				<Route
 					path="*"

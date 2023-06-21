@@ -38,9 +38,13 @@ function Nav() {
 				spacing={10}
 				justifyContent={"space-around"}
 				alignItems={"center"}
-				bgcolor={"white"}
 				width="100vw"
 				py={1}
+				sx={{
+					background: "linear-gradient(to right, #49a09d, #5f2c82)",
+					boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+					backdropFilter: "blur( 5.5px )",
+				}}
 			>
 				<IconButton onClick={() => setOpen(true)}>
 					<MenuIcon />{" "}

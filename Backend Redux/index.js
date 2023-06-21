@@ -89,67 +89,67 @@ app.post("/api/login", (req, res) => {
 					maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
 				});
 
-				res.status(200).json({ success: true, user });
+				res.status(200).json({ success: true });
 			}
 		});
 	});
 });
-app.get("/api/user", (req, res) => {
-	// Extract the token from the request cookies
-	const token = req.cookies.token;
+// app.get("/api/user", (req, res) => {
+// 	// Extract the token from the request cookies
+// 	const token = req.cookies.token;
 
-	if (!token) {
-		// No token found, user is not authenticated
-		res.status(401).json({ success: false, message: "User not authenticated" });
-		return;
-	}
+// 	if (!token) {
+// 		// No token found, user is not authenticated
+// 		res.status(401).json({ success: false, message: "User not authenticated" });
+// 		return;
+// 	}
 
-	// Verify the token
-	jwt.verify(token, jwtSecret, (err, decoded) => {
-		if (err) {
-			// Token verification failed
-			console.error("Token verification error:", err);
-			res.status(401).json({ success: false, message: "Invalid token" });
-			return;
-		}
+// 	// Verify the token
+// 	jwt.verify(token, jwtSecret, (err, decoded) => {
+// 		if (err) {
+// 			// Token verification failed
+// 			console.error("Token verification error:", err);
+// 			res.status(401).json({ success: false, message: "Invalid token" });
+// 			return;
+// 		}
 
-		// Token is valid, retrieve user information based on the decoded payload
-		const userId = decoded.userId;
+// 		// Token is valid, retrieve user information based on the decoded payload
+// 		const userId = decoded.userId;
 
-		// Perform the MySQL query to fetch the user information
-		pool.getConnection((err, connection) => {
-			if (err) {
-				console.error("Error connecting to MySQL:", err);
-				res
-					.status(500)
-					.json({ success: false, message: "Internal server error" });
-				return;
-			}
+// 		// Perform the MySQL query to fetch the user information
+// 		pool.getConnection((err, connection) => {
+// 			if (err) {
+// 				console.error("Error connecting to MySQL:", err);
+// 				res
+// 					.status(500)
+// 					.json({ success: false, message: "Internal server error" });
+// 				return;
+// 			}
 
-			const query = "SELECT * FROM users WHERE id = ?";
-			connection.query(query, [userId], (error, results) => {
-				connection.release();
+// 			const query = "SELECT * FROM users WHERE id = ?";
+// 			connection.query(query, [userId], (error, results) => {
+// 				connection.release();
 
-				if (error) {
-					console.error("Error executing MySQL query:", error);
-					res
-						.status(500)
-						.json({ success: false, message: "Internal server error" });
-					return;
-				}
+// 				if (error) {
+// 					console.error("Error executing MySQL query:", error);
+// 					res
+// 						.status(500)
+// 						.json({ success: false, message: "Internal server error" });
+// 					return;
+// 				}
 
-				if (results.length === 0) {
-					// No matching user found in the database
-					res.status(404).json({ success: false, message: "User not found" });
-				} else {
-					// User information found
-					const user = results[0];
-					res.status(200).json({ success: true, user });
-				}
-			});
-		});
-	});
-});
+// 				if (results.length === 0) {
+// 					// No matching user found in the database
+// 					res.status(404).json({ success: false, message: "User not found" });
+// 				} else {
+// 					// User information found
+// 					const user = results[0];
+// 					res.status(200).json({ success: true });
+// 				}
+// 			});
+// 		});
+// 	});
+// });
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
