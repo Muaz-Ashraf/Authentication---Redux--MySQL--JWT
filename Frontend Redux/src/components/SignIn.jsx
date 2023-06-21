@@ -115,10 +115,9 @@ const SignInForm = () => {
 							color={"white"}
 							sx={{
 								backgroundColor: "#4158D0",
-								backgroundImage:
-									"linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #ff707b 100%)",
+
 								transition:
-									"background-color 2s ease-in-out, letter-spacing 2s ease-in-out",
+									"background-color 2s ease-in-out,background-image 2s ease-in-out, letter-spacing 2s ease-in-out",
 								"&:hover": {
 									letterSpacing: "0.5rem",
 									backgroundColor: "#ff707b",

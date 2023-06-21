@@ -11,7 +11,7 @@ import Contact from "./components/Contact";
 import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 import NotFound from "./components/404";
-import { clearToken } from "./authSlice";
+import { setAuthenticated, setToken, clearToken } from "./authSlice";
 
 const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -20,10 +20,11 @@ const App = () => {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const response = await fetch("/api/user", {
+				const response = await fetch("http://localhost:5000/api/user", {
 					method: "GET",
 					credentials: "include",
 				});
+
 				if (response.ok) {
 					const data = await response.json();
 					dispatch(setAuthenticated(data.user));
@@ -46,22 +47,49 @@ const App = () => {
 		} else {
 			dispatch(clearToken());
 		}
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<Router>
 			<Routes>
 				<Route
 					path="/"
-					element={isAuthenticated ? <Home /> : <Navigate to="/signin" />}
+					element={
+						isAuthenticated ? (
+							<Home />
+						) : (
+							<Navigate
+								to="/signin"
+								replace
+							/>
+						)
+					}
 				/>
 				<Route
 					path="/about"
-					element={isAuthenticated ? <About /> : <Navigate to="/signin" />}
+					element={
+						isAuthenticated ? (
+							<About />
+						) : (
+							<Navigate
+								to="/signin"
+								replace
+							/>
+						)
+					}
 				/>
 				<Route
 					path="/contact"
-					element={isAuthenticated ? <Contact /> : <Navigate to="/signin" />}
+					element={
+						isAuthenticated ? (
+							<Contact />
+						) : (
+							<Navigate
+								to="/signin"
+								replace
+							/>
+						)
+					}
 				/>
 				<Route
 					path="/signin"

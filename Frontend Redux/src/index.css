@@ -349,3 +349,23 @@ template {
 [hidden] {
 	display: none;
 }
+/* width */
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #fceded;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #ff0808;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #ff0808;
+}

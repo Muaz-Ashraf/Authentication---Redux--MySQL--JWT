@@ -52,8 +52,8 @@ function Nav() {
 						"& a": {
 							borderRadius: 2,
 							textDecoration: "none",
-							color: "blue",
-							"&:hover": { bgcolor: "red", color: "white" },
+							color: "black",
+							"&:hover": { bgcolor: "lightpink" },
 						},
 						"& a.active": {
 							// Custom style for active link
@@ -121,7 +121,7 @@ function Nav() {
 				sx={{
 					"& .MuiPaper-root": {
 						width: "300px",
-						overflow: "hidden",
+						overflowY: "scroll",
 					},
 				}}
 			>
