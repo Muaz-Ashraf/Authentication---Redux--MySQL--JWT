@@ -12,39 +12,31 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState,
 	reducers: {
-		setToken: (state, action) => {
-			state.token = action.payload;
-		},
-		clearToken: (state) => {
-			state.token = null;
-		},
-		setAuthenticated: (state) => {
+		login: (state, { payload }) => {
+			state.token = payload;
 			state.isAuthenticated = true;
 		},
-		clearAuthenticated: (state) => {
+		logout: (state) => {
+			state.token = null;
 			state.isAuthenticated = false;
 		},
 	},
 });
 
-// Encryption configuration
 const encryptor = encryptTransform({
-	secretKey: "scm", // Replace with your own secret key
+	secretKey: "scm",
 	onError: function (error) {
-		// Handle encryption errors
 		console.log(error);
 	},
 });
 
-// Redux persist configuration
 const persistConfig = {
 	key: "auth",
 	storage: storage,
-	transforms: [encryptor], // Apply the encryption transform
+	transforms: [encryptor],
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { setToken, clearToken, setAuthenticated, clearAuthenticated } =
-	authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default persistedAuthReducer;

@@ -13,14 +13,16 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Grid, Typography } from "@mui/material";
-import { clearAuthenticated, clearToken } from "../authSlice";
+import { logout } from "../authSlice";
+import Sidebar from "./Sidebar";
+import { items } from "./items";
 
 function Nav() {
 	const dispatch = useDispatch();
 	const handleLogout = () => {
-		dispatch(clearToken());
-		dispatch(clearAuthenticated());
+		dispatch(logout());
 	};
+
 	const [open, setOpen] = React.useState(false);
 	function generate(element) {
 		return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) =>
@@ -35,34 +37,39 @@ function Nav() {
 			<Stack
 				position="fixed"
 				direction={"row"}
-				spacing={10}
-				justifyContent={"space-around"}
+				justifyContent={"space-between"}
 				alignItems={"center"}
 				width="100vw"
-				py={1}
+				py={1.5}
 				sx={{
-					background: "linear-gradient(to right, #49a09d, #5f2c82)",
+					background: "rgba( 255, 255, 255, 0.2 )",
 					boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
 					backdropFilter: "blur( 5.5px )",
 				}}
 			>
-				<IconButton onClick={() => setOpen(true)}>
-					<MenuIcon />{" "}
+				<IconButton
+					ml={3}
+					onClick={() => setOpen(true)}
+				>
+					<MenuIcon sx={{ fontSize: "3rem", color: "white" }} />{" "}
 				</IconButton>
 				<Stack
-					direction="row"
-					spacing={3}
+					direction={{ xs: "column", sm: "row" }}
+					spacing={1}
 					sx={{
 						"& a": {
-							borderRadius: 2,
+							borderRadius: 10,
+							color: "white",
 							textDecoration: "none",
-							color: "black",
+							p: 2,
+
 							"&:hover": { bgcolor: "lightpink" },
 						},
 						"& a.active": {
 							// Custom style for active link
 							bgcolor: "red",
-							color: "white",
+
+							fontWeight: "bold",
 						},
 					}}
 				>
@@ -73,7 +80,6 @@ function Nav() {
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
-								p: 2,
 							}}
 							fontSize={"20px"}
 						>
@@ -87,7 +93,6 @@ function Nav() {
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
-								p: 2,
 							}}
 							fontSize={"20px"}
 						>
@@ -102,7 +107,6 @@ function Nav() {
 						<Typography
 							sx={{
 								transition: "all 0.5s ease-in-out",
-								p: 2,
 							}}
 							fontSize={"20px"}
 						>
@@ -110,13 +114,15 @@ function Nav() {
 						</Typography>
 					</Link>
 				</Stack>{" "}
-				<Button
-					variant="contained"
-					color="error"
-					onClick={handleLogout}
-				>
-					Logout
-				</Button>
+				<Box sx={{ mr: 2 }}>
+					<Button
+						variant="contained"
+						color="error"
+						onClick={handleLogout}
+					>
+						Logout
+					</Button>
+				</Box>
 			</Stack>
 			<Drawer
 				open={open}
@@ -126,24 +132,12 @@ function Nav() {
 					"& .MuiPaper-root": {
 						width: "300px",
 						overflowY: "scroll",
+						bgcolor: "blue",
+						color: "white",
 					},
 				}}
 			>
-				<Box>
-					<List>
-						{generate(
-							<ListItem>
-								<ListItemIcon>
-									<MenuIcon />
-								</ListItemIcon>
-								<ListItemText
-									primary="App Authentication"
-									secondary="Authorization"
-								/>
-							</ListItem>
-						)}
-					</List>
-				</Box>
+				<Sidebar items={items} />
 			</Drawer>
 		</>
 	);

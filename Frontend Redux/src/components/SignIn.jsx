@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import InputIcon from "@mui/icons-material/Input";
 import { useDispatch } from "react-redux";
@@ -14,11 +14,9 @@ import {
 	Grid,
 	CircularProgress,
 } from "@mui/material";
-import { setToken, clearToken, setAuthenticated } from "../authSlice";
+import { login } from "../authSlice";
 
 const SignInForm = () => {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
 	const dispatch = useDispatch();
 
 	const {
@@ -31,6 +29,7 @@ const SignInForm = () => {
 	} = useForm();
 
 	const [loading, setLoading] = useState(false);
+	const drag = useRef(null);
 
 	const onSubmit = async (data) => {
 		setLoading(true);
@@ -45,11 +44,8 @@ const SignInForm = () => {
 			});
 
 			if (response.ok) {
-				// Request was successful
-				dispatch(setToken()); // Dispatch the action without passing the token
-				dispatch(setAuthenticated());
+				dispatch(login());
 			} else {
-				// Request failed
 				throw new Error("Error: " + response.status);
 			}
 		} catch (error) {
@@ -57,8 +53,6 @@ const SignInForm = () => {
 			console.error(error);
 		}
 
-		setUsername(data.username);
-		setPassword(data.password);
 		setLoading(false);
 	};
 
@@ -73,6 +67,7 @@ const SignInForm = () => {
 				height={"fit-content"}
 				display={"flex"}
 				alignItems={"center"}
+				fontFamily={"cursive"}
 				justifyContent={"center"}
 				sx={{
 					position: "fixed",
@@ -97,6 +92,8 @@ const SignInForm = () => {
 				}}
 			>
 				<motion.div
+					ref={drag}
+					drag
 					initial={{ scale: 0, rotate: 360 }}
 					animate={{ rotate: 0, scale: 1 }}
 					transition={{

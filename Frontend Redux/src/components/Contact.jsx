@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Box, Grid, Typography } from "@mui/material";
 import Nav from "./Nav";
 import Page from "./Page";
+import { motion } from "framer-motion";
 
 function Contact() {
 	const dispatch = useDispatch();
@@ -14,7 +15,19 @@ function Contact() {
 	return (
 		<>
 			<Nav />
-			<Page>Contact</Page>
+			<Page>
+				<motion.div
+					initial={{ scale: 0, translateX: 600 }}
+					animate={{ translateX: 0, scale: 1 }}
+					transition={{
+						type: "spring",
+						stiffness: 300,
+						damping: 50,
+					}}
+				>
+					Contact
+				</motion.div>
+			</Page>
 		</>
 	);
 }
