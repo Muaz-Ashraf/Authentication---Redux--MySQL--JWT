@@ -3,7 +3,7 @@ import React from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
 
-const Page = ({ children }) => {
+export default function Page({ children }) {
 	return (
 		<Grid
 			container
@@ -12,8 +12,6 @@ const Page = ({ children }) => {
 			height={"100vh"}
 			sx={{
 				backgroundImage: "url('/pagebg.png')",
-				backgroundRepeat: "no-repeat",
-				backgroundSize: "cover",
 			}}
 		>
 			<Typography
@@ -24,6 +22,4 @@ const Page = ({ children }) => {
 			</Typography>
 		</Grid>
 	);
-};
-
-export default Page;
+}
