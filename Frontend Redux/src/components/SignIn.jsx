@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import InputIcon from "@mui/icons-material/Input";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../authSlice";
 import { motion } from "framer-motion";
 import {
 	TextField,
@@ -14,6 +13,7 @@ import {
 	Card,
 	Grid,
 } from "@mui/material";
+import { setToken, clearToken, setAuthenticated } from "../authSlice";
 
 const SignInForm = () => {
 	const [username, setUsername] = useState("");
@@ -36,15 +36,13 @@ const SignInForm = () => {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(data),
+				credentials: "include", // Include cookies in the request
 			});
 
 			if (response.ok) {
 				// Request was successful
-				const responseData = await response.json();
-				// Process the response data as needed
-				const token = responseData.token;
-				console.log(token);
-				dispatch(setToken(token));
+				dispatch(setToken()); // Dispatch the action without passing the token
+				dispatch(setAuthenticated());
 				navigate("/");
 			} else {
 				// Request failed
@@ -146,6 +144,8 @@ const SignInForm = () => {
 							<Grid
 								item
 								xs={3}
+								component="label"
+								htmlFor="username"
 							>
 								<Typography fontWeight={"bold"}>Username:</Typography>
 							</Grid>
@@ -156,8 +156,9 @@ const SignInForm = () => {
 								<TextField
 									fullWidth
 									size="small"
+									id="username"
 									type="text"
-									placeholder="Enter Username"
+									placeholder="Enter your username here"
 									{...register("username", {
 										required: "Please enter your username.",
 										minLength: {
@@ -172,6 +173,8 @@ const SignInForm = () => {
 							<Grid
 								item
 								xs={3}
+								component="label"
+								htmlFor="password"
 							>
 								<Typography fontWeight={"bold"}>Password:</Typography>
 							</Grid>
@@ -181,9 +184,10 @@ const SignInForm = () => {
 							>
 								<TextField
 									fullWidth
+									id="password"
 									size="small"
 									type="password"
-									placeholder="Enter Password"
+									placeholder="Enter your password here"
 									{...register("password", {
 										required: "Please enter your password.",
 										minLength: {

@@ -1,21 +1,52 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
 	BrowserRouter as Router,
 	Routes,
 	Route,
 	Navigate,
 } from "react-router-dom";
-
 import About from "./components/About";
 import Contact from "./components/Contact";
 import SignIn from "./components/SignIn";
 import Home from "./components/Home";
 import NotFound from "./components/404";
+import { clearToken } from "./authSlice";
 
 const App = () => {
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-	console.log(isAuthenticated);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const response = await fetch("/api/user", {
+					method: "GET",
+					credentials: "include",
+				});
+				if (response.ok) {
+					const data = await response.json();
+					dispatch(setAuthenticated(data.user));
+				} else {
+					dispatch(clearToken());
+				}
+			} catch (error) {
+				console.error("Error fetching user:", error);
+				dispatch(clearToken());
+			}
+		};
+
+		const token = document.cookie
+			.split("; ")
+			.find((cookie) => cookie.startsWith("token="));
+
+		if (token) {
+			dispatch(setToken(token.split("=")[1]));
+			fetchUser();
+		} else {
+			dispatch(clearToken());
+		}
+	}, [dispatch]);
 
 	return (
 		<Router>

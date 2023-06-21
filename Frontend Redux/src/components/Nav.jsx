@@ -11,18 +11,19 @@ import {
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { clearToken } from "../authSlice";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Grid, Typography } from "@mui/material";
+import { clearAuthenticated, clearToken } from "../authSlice";
 
 function Nav() {
 	const dispatch = useDispatch();
 	const handleLogout = () => {
 		dispatch(clearToken());
+		dispatch(clearAuthenticated());
 	};
 	const [open, setOpen] = React.useState(false);
 	function generate(element) {
-		return [0, 1, 2].map((value) =>
+		return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) =>
 			React.cloneElement(element, {
 				key: value,
 			})
@@ -132,8 +133,8 @@ function Nav() {
 									<MenuIcon />
 								</ListItemIcon>
 								<ListItemText
-									primary="Single-line item"
-									secondary={"Secondary text"}
+									primary="App Authentication"
+									secondary="Authorization"
 								/>
 							</ListItem>
 						)}
