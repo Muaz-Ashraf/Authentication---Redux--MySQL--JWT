@@ -15,7 +15,6 @@ function About() {
 		<>
 			<Nav />
 			<Page>
-				{" "}
 				<motion.div
 					initial={{ scale: 0, translateX: 600 }}
 					animate={{ translateX: 0, scale: 1 }}
@@ -25,7 +24,7 @@ function About() {
 						damping: 50,
 					}}
 				>
-					About
+					<Typography fontSize="5rem">ABOUT</Typography>
 				</motion.div>
 			</Page>
 		</>

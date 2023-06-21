@@ -25,7 +25,7 @@ function Contact() {
 						damping: 50,
 					}}
 				>
-					Contact
+					<Typography fontSize="5rem">CONTACT</Typography>
 				</motion.div>
 			</Page>
 		</>

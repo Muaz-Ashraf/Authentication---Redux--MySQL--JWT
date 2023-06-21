@@ -89,7 +89,7 @@ app.post("/api/login", (req, res) => {
 					maxAge: 60 * 60 * 1000, // 1 hour in milliseconds
 				});
 
-				res.status(200).json({ success: true });
+				res.status(200).json({ success: true, user });
 			}
 		});
 	});

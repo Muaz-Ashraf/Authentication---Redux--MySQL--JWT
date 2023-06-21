@@ -29,6 +29,7 @@ const SignInForm = () => {
 	} = useForm();
 
 	const [loading, setLoading] = useState(false);
+	const [userInfo, setUserInfo] = useState("");
 	const drag = useRef(null);
 
 	const onSubmit = async (data) => {
@@ -44,6 +45,9 @@ const SignInForm = () => {
 			});
 
 			if (response.ok) {
+				const userData = await response.json();
+				console.log(userData);
+				setUserInfo(userData);
 				dispatch(login());
 			} else {
 				throw new Error("Error: " + response.status);
