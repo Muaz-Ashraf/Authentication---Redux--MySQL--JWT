@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Grid, Typography } from "@mui/material";
 import { logout } from "../authSlice";
@@ -32,6 +32,10 @@ function Nav() {
 		);
 	}
 	const location = useLocation();
+	const { userRole } = useSelector((state) => state.auth);
+
+	console.log(userRole);
+
 	return (
 		<>
 			<Stack
@@ -113,6 +117,35 @@ function Nav() {
 							Contact
 						</Typography>
 					</Link>
+					{userRole === "admin" ? (
+						<Link
+							to="/admin"
+							className={location.pathname === "/admin" ? "active" : ""}
+						>
+							<Typography
+								sx={{
+									transition: "all 0.5s ease-in-out",
+								}}
+								fontSize={"20px"}
+							>
+								Admin
+							</Typography>
+						</Link>
+					) : (
+						<Link
+							to="/user"
+							className={location.pathname === "/user" ? "active" : ""}
+						>
+							<Typography
+								sx={{
+									transition: "all 0.5s ease-in-out",
+								}}
+								fontSize={"20px"}
+							>
+								User
+							</Typography>
+						</Link>
+					)}
 				</Stack>{" "}
 				<Box sx={{ mr: 2 }}>
 					<Button
